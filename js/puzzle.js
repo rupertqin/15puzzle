@@ -10,11 +10,6 @@ function CubeCtrl($scope, $locale) {
   // Domready
   angular.element(document).ready(function () {
     $scope.$white = angular.element(".white");
-    // angular.element(document).keydown(function(e){
-    //   if(e.keyCode > 36 && e.keyCode < 41){
-    //     e.preventDefault();
-    //   }
-    // })
   });
 
   // $scope.eatKeydown = function(e){
