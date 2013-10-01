@@ -1,0 +1,137 @@
+<!doctype html>
+<html>
+  <head>
+<script src="../sources/javascripts/underscore.js"></script>
+<script>
+var row = ["red", "red", "blue", "blue"]
+var layHeight = 4;
+var cube = _.map(_.range(layHeight), function(){
+	return _.clone(row)
+});
+cube[0][0] = "white";
+var roads = [];
+var currentRoad = roads[0] = [];
+
+var whiteCood = [0, 0]
+
+// begin
+exchange()
+
+function switchValue(a, b, c, d){
+	var white = cube[a][b];
+	var target = cube[c][d];
+	cube[a][b] = target;
+	cube[c][d] = white;
+}	
+
+// forbid hit and run
+function getBlacklist(){
+	var lastDirection = _.last(currentRoad);
+	var blackListDirection;
+	switch (lastDirection)
+	{
+		case "L":
+			blackListDirection = "R"
+			break; 
+		case "R":
+			blackListDirection = "L"
+			break; 
+		case "U":
+			blackListDirection = "D"
+			break; 
+		case "D":
+			blackListDirection = "U"
+			break; 
+	}
+	return blackListDirection;
+}
+
+function getNextPoints(){
+	var directions = [
+		{cood: [0,-1], dir: "L"},
+		{cood: [0,1],  dir: "R"},
+		{cood: [-1,0], dir: "U"},
+		{cood: [1,0],  dir: "D"}
+	];
+
+	// get next possible points
+	var nextPoints = _.map(directions, function(obj){
+		obj.cood[0] = whiteCood[0] + obj.cood[0]
+		obj.cood[1] = whiteCood[1] + obj.cood[1]
+		return obj;
+	});
+
+	// don't move out of boundary neither blacklist
+	return _.filter(nextPoints, function(obj){
+		var x = obj.cood[0]
+		var y = obj.cood[1]
+		return obj.dir != getBlacklist() && -1 < x && x < 4 && -1 < y && y < 4 ;
+		
+	});
+
+
+}
+
+function checkAnswer(){
+	if(currentRoad.length > 36){
+
+		// delete current road and find new load
+		roads.pop()
+		findNewRoad();
+	} else if(currentRoad.length < 16){
+		exchange()
+	} else{
+		if(cube[0][0] == "white" && cube[0][2] == "red" 
+			&& cube[1][1] == "red" && cube[1][3] == "red" 
+			&& cube[2][0] == "red" && cube[2][2] == "red" 
+			&& cube[3][1] == "red" 
+			&& cube[3][3] == "red"
+		){
+			if(roads.length == 3) {
+				console.log(roads[0].join(""))
+				// stop finding
+				return false;
+			};
+			findNewRoad();
+
+		} else{
+			setTimeout( exchange , 0)
+		}
+	}
+}
+
+function exchange(){
+	
+	var nextPoint = _.sample( getNextPoints() );
+	var args = whiteCood.concat(nextPoint.cood);
+
+	// collect path
+	currentRoad.push( nextPoint.dir );
+
+	// exchange value
+	switchValue.apply( {}, args );
+	whiteCood = nextPoint.cood;	// set current white point
+
+	checkAnswer();
+	
+}
+
+function findNewRoad(){
+	cube =_.map(_.range(layHeight), function(){
+		return _.clone(row)
+	});
+	cube[0][0] = "white";
+	roads.push([]);
+	currentRoad = _.last(roads);
+	whiteCood = [0, 0];
+	exchange();
+}
+
+
+
+</script>
+  </head>
+  <body>
+
+  </body>
+</html>

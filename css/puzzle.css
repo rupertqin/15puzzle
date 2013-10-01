@@ -1,0 +1,6 @@
+ul{list-style: none;clear: both;}
+li{float: left;width: 35px;height: 35px;margin: 1px;color: #eee;text-align: center;line-height: 35px;}
+li span{opacity: 0.6;}
+li.red{background: red;}
+li.blue{background: blue;}
+li.white{background: white;width: 33px;height: 33px;border: 1px solid black;}
