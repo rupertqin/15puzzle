@@ -1,10 +1,9 @@
 
 function CubeCtrl($scope, $locale) {
-  $scope.width = 4;
+  $scope.colors = ["red", "red ", "blue", "blue "];
   $scope.height = 4;
   $scope.answer = [];
-  $scope.lays = _.range($scope.width);
-  $scope.colors = ["red", "red ", "blue", "blue "];
+  $scope.lays = _.range($scope.colors.length);
   $scope.$white = undefined;
 
   // Domready
@@ -70,6 +69,21 @@ function CubeCtrl($scope, $locale) {
     } else {return color;}
   }
 
+  $scope.reset = function () {
+    var copy = $scope.colors[2];
+    $scope.colors[2] = copy + " ";
+  }
+
+  $scope.increase = function () {
+    $scope.lays = _.range($scope.colors.length + 1);
+    var blank = "";
+    for(var i = 0; i < $scope.colors.length - 2; i++){
+      blank+=" "
+    }
+    $scope.colors.push("blue" + blank);
+  }
+  
+
   $scope.moveLeft = function(){
     var coordinate = $scope.$white.prevUntil( "ul" ).size();
     if (coordinate == 0) return false;
@@ -80,7 +94,7 @@ function CubeCtrl($scope, $locale) {
 
   $scope.moveRight = function(){
     var coordinate = $scope.$white.prevUntil( "ul" ).size();
-    if (coordinate + 1 == $scope.width) return false;
+    if (coordinate + 1 == $scope.colors.length) return false;
     var $exchanger = $scope.$white.next("li");
     $scope.exchangeElements($scope.$white, $exchanger)
     $scope.answer.push("R")
@@ -110,11 +124,6 @@ function CubeCtrl($scope, $locale) {
     b.before(a);
     cloneA.before(b).remove();
   }
-
-
-
-
-
 }
 
 

@@ -19,12 +19,13 @@
         <input type="text" ng-model="queue"  ng-trim="true" />
         <input type="submit" value="Go!" tabindex="1" ng-keypress="reset()"/>
         <div>
-          <input type="reset" value="reset!" ng-click="reset" />
+          <input type="reset" value="reset!" ng-click="reset()" />
+          <input type="reset" value="increase" ng-click="increase()" />
         </div>
       </form>
     	<ul ng-repeat="lay in lays" class="lay-{{lay + 1}}">
     		<li ng-repeat="color in colors" class="{{render(lay, $index, color)}}">
-    			<span>{{($index + 1) + 4*lay}}<span>
+    			<span>{{($index + 1) + colors.length*lay}}</span>
     		</li>
     	</ul>
     </div>
