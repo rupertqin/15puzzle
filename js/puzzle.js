@@ -76,14 +76,16 @@ function CubeCtrl($scope, $locale) {
 
   $scope.increase = function () {
     $scope.lays = _.range($scope.colors.length + 1);
-    var blank = "";
-    for(var i = 0; i < $scope.colors.length - 2; i++){
-      blank+=" "
-    }
-    $scope.colors.push("blue" + blank);
+    var newColor = _.last($scope.colors) + " ";
+    $scope.colors.push(newColor);
+  }
+
+  $scope.decrease = function () {
+    if($scope.colors.length === 3) return false;
+    $scope.lays = _.range($scope.colors.length - 1);
+    $scope.colors.pop();
   }
   
-
   $scope.moveLeft = function(){
     var coordinate = $scope.$white.prevUntil( "ul" ).size();
     if (coordinate == 0) return false;
@@ -125,9 +127,4 @@ function CubeCtrl($scope, $locale) {
     cloneA.before(b).remove();
   }
 }
-
-
-
-
-
 

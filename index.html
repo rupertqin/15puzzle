@@ -8,11 +8,10 @@
     <link rel="stylesheet" type="text/css" href="css/puzzle.css">
   </head>
   <body ng-controller="CubeCtrl" ng-keydown="moveQueue($event); eatKeydown($event);">
-    <h2>Cube Puzzle</h2>
-    RDRDLDRRULLLURRULLDRRDDRUULDLLDRUUUL<br>
-    RDRDL DRRUL LLURR ULLDR RRDLD RULLL DRUUU L<br>
-
-    <h4>press arrow to move</h4>
+    <h1>Cube Puzzle</h1>
+    <p>RDRDLDRRULLLURRULLDRRDDRUULDLLDRUUUL</p>
+    <p>RDRDL DRRUL LLURR ULLDR RRDLD RULLL DRUUU L</p>
+    <h2>press arrow to move</h2>
     <br>
     <div>
       <form ng-submit="goThroughQueue()">
@@ -21,6 +20,7 @@
         <div>
           <input type="reset" value="reset!" ng-click="reset()" />
           <input type="reset" value="increase" ng-click="increase()" />
+          <input type="reset" value="decrease" ng-click="decrease()" />
         </div>
       </form>
     	<ul ng-repeat="lay in lays" class="lay-{{lay + 1}}">
