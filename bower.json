@@ -1,0 +1,32 @@
+{
+  "name": "15puzzle",
+  "version": "0.1",
+  "main": "index.html",
+  "ignore": [
+    ".jshintrc",
+    "**/*.txt",
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "latest",
+    "underscore": "latest"
+  },
+  "devDependencies": {
+    "backbone": "latest"
+  },
+  "homepage": "https://github.com/rupertqin/15puzzle",
+  "authors": [
+    "rup <uglysoul@foxmail.com>"
+  ],
+  "description": "famous 15 puzzle game",
+  "keywords": [
+    "15",
+    "puzzle"
+  ],
+  "license": "MIT",
+  "private": true
+}
